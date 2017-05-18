@@ -7,8 +7,10 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const { ipcMain } = require('electron');
 const fs = require('fs');
+var Avrgirl = require('avrgirl-arduino');
 
 var mainWindow = null;
+global.sender = null;
 
 var savedFile = null;
 
@@ -19,11 +21,19 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-    mainWindow = new BrowserWindow({ width: 900, height: 1000, resizable: false, frame: false });
+    mainWindow = new BrowserWindow({
+        width: 900,
+        height: 1000,
+        resizable: false,
+        frame: false,
+        icon: "app/media/icon64.png",
+        title: "TechLabIDE"
+    });
+
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
     mainWindow.maximize();
 
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', function() {
         mainWindow = null;
@@ -34,6 +44,21 @@ app.on('ready', function() {
 /*
  * Ipc handlers
  */
+ipcMain.on('ready', function(e, d) {
+    global.sender = e.sender;
+    Avrgirl.list(function(err, ports) {
+        console.log(ports);
+        global.sender.send('portsRefresh', ports);
+    });
+
+    setInterval(function() {
+        Avrgirl.list(function(err, ports) {
+            console.log(ports);
+            global.sender.send('portsRefresh', ports);
+        });
+    }, 5000);
+});
+
 
 ipcMain.on('close', function() {
     app.quit();

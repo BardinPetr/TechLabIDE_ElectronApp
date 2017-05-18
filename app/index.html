@@ -57,12 +57,12 @@
                     <div class="btn-group">
                         <button id="123" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="media/icons/usb_m.png"/>
-                                Порт: {{port}}
+                                Порт
                                 <span class="caret"></span>
                             </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="i in portsMeta">
-                                <a data-ng-click="setPort(i.path)" ng-bind="i.path + '- ' + i.displayName" href="#" title="{{ i.displayName }}"></a>
+                        <ul id="portList" class="dropdown-menu">
+                            <li>
+                                <a href="#">XXX</a>
                             </li>
                         </ul>
                     </div>
@@ -71,12 +71,12 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="media/icons/memory_m.png"/>
-                                Плата: {{board}}
+                                Плата
                                 <span class="caret"></span>
                             </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="i in boards">
-                                <a data-ng-click="setBoard(i)" ng-bind="i" href="#"></a>
+                        <ul id="boardsList" class="dropdown-menu">
+                            <li>
+                                <a href="#">XXX</a>
                             </li>
                         </ul>
                     </div>
