@@ -10,85 +10,129 @@
 </head>
 
 <body>
-    <button id="close">close</button>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid" style="height:75px">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <a style="padding:0 15px; line-height:70px;" class="navbar-brand">TechLab IDE</a>
+                <a class="navbar-brand" href="#">TechLabIDE</a>
             </div>
-
-            <div class="collapse navbar-collapse" style="line-height:70px;">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" style="padding:0 15px; line-height:70px; vertical-align: middle" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img src="media/icons/dots-vertical.png" />
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-ng-click="new_onClick()">Новый</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#" data-ng-click="open_onClick()">Открыть</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#" data-ng-click="save_onClick()">Сохранить блоки</a></li>
-                            <li><a href="#" data-ng-click="saveblocks_onClick()">Сохранить блоки как</a></li>
-                            <li><a href="#" data-ng-click="savecode_onClick()">Сохранить код</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#" data-ng-click="set_onClick()">Настройки</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" style="height:60px" data-ng-click="compile()">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="min" href="#"><span class="glyphicon glyphicon-minus"></span></a></li>
+                <li><a id="close" href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-inverse" style="padding-top:50px">
+        <div class="collapse navbar-collapse" style="line-height:70px;">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" style="padding:0 15px; line-height:70px; vertical-align: middle" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src="media/icons/dots-vertical.png" />
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="new">Новый</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" id="open">Открыть</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" id="save">Сохранить блоки</a></li>
+                        <li><a href="#" id="saveB">Сохранить блоки как</a></li>
+                        <li><a href="#" id="saveC">Сохранить код</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" id="set">Настройки</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" style="height:60px" id="compile">
                                 <img src="media/icons/check_code.png"/>
-                            </button>
-                            <button class="btn btn-warning" style="height:60px" data-ng-click="upload()">
+                        </button>
+                        <button class="btn btn-warning" style="height:60px" id="upload">
                                 <img src="media/icons/upload_code.png"/>
-                            </button>
-                    </li>
-                    <li class="divider">
-                        <a></a>
-                    </li>
-                    <li>
-                        <div class="btn-group">
-                            <button id="123" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                    </div>
+                </li>
+                <li class="divider">
+                    <a></a>
+                </li>
+                <li>
+                    <div class="btn-group">
+                        <button id="123" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="media/icons/usb_m.png"/>
                                 Порт: {{port}}
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="i in portsMeta">
-                                    <a data-ng-click="setPort(i.path)" ng-bind="i.path + '- ' + i.displayName" href="#" title="{{ i.displayName }}"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="i in portsMeta">
+                                <a data-ng-click="setPort(i.path)" ng-bind="i.path + '- ' + i.displayName" href="#" title="{{ i.displayName }}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="media/icons/memory_m.png"/>
                                 Плата: {{board}}
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="i in boards">
-                                    <a data-ng-click="setBoard(i)" ng-bind="i" href="#"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="" ng-click="terminal()"><img src="media/icons/console_big.png" /></a>
-                    </li>
-                    <li style="margin-right: 15px;">
-                        <img id="connect_img" src="media/icons/power-plug-off.png" />
-                    </li>
-                </ul>
-                </div>
-            </div>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="i in boards">
+                                <a data-ng-click="setBoard(i)" ng-bind="i" href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="" ng-click="terminal()"><img src="media/icons/console_big.png" /></a>
+                </li>
+                <li style="margin-right: 15px;">
+                    <img id="connect_img" src="media/icons/power-plug-off.png" />
+                </li>
+            </ul>
+        </div>
     </nav>
+
+    <div class="_container">
+        <div id="popup_ok_c" class="alert alert-success alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Завершено! Ошибок нет!</strong> Код скомпилирован!
+        </div>
+        <div id="popup_ok_u" class="alert alert-success alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Завершено!</strong> Код загружен!
+        </div>
+        <div id="popup_fail_c" class="alert alert-danger alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Есть проблемы!</strong> Компиляция не удалась!
+        </div>
+        <div id="popup_fail_u" class="alert alert-danger alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Есть проблемы!</strong> Загрузка не удалась!
+        </div>
+        <div id="popup_started" class="alert alert-info alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Компиляция кода началась</strong>
+        </div>
+        <div id="popup_file_o" class="alert alert-info alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Файл с проектом загружен</strong>
+        </div>
+        <div id="popup_file_s" class="alert alert-info alert-dismissable fade in" style="display: none;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Файл с проектом сохранен</strong>
+        </div>
+
+        <xml id="startBlocks" style="display: none;"></xml>
+        <div id="wrap">
+            <div id="blockly" style="float: left; width: 66%;"></div>
+            <div id="code" style="float: right; width: 34%;"></div>
+        </div>
+    </div>
+    </div>
 </body>
 
+<script src="lib/jquery/dist/jquery.js"></script>
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -100,5 +144,6 @@
 <script src="lib/roboblocks.js"></script>
 
 <script src="js/main.js" type="application/javascript"></script>
+<script src="js/main_roboblocks.js" type="application/javascript"></script>
 
 </html>
