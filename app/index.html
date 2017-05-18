@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="lib/highlight/styles/default.css">
+</head>
+
+<body>
+    <button id="close">close</button>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid" style="height:75px">
+            <div class="navbar-header">
+                <a style="padding:0 15px; line-height:70px;" class="navbar-brand">TechLab IDE</a>
+            </div>
+
+            <div class="collapse navbar-collapse" style="line-height:70px;">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" style="padding:0 15px; line-height:70px; vertical-align: middle" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img src="media/icons/dots-vertical.png" />
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-ng-click="new_onClick()">Новый</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" data-ng-click="open_onClick()">Открыть</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" data-ng-click="save_onClick()">Сохранить блоки</a></li>
+                            <li><a href="#" data-ng-click="saveblocks_onClick()">Сохранить блоки как</a></li>
+                            <li><a href="#" data-ng-click="savecode_onClick()">Сохранить код</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" data-ng-click="set_onClick()">Настройки</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" style="height:60px" data-ng-click="compile()">
+                                <img src="media/icons/check_code.png"/>
+                            </button>
+                            <button class="btn btn-warning" style="height:60px" data-ng-click="upload()">
+                                <img src="media/icons/upload_code.png"/>
+                            </button>
+                    </li>
+                    <li class="divider">
+                        <a></a>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button id="123" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="media/icons/usb_m.png"/>
+                                Порт: {{port}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="i in portsMeta">
+                                    <a data-ng-click="setPort(i.path)" ng-bind="i.path + '- ' + i.displayName" href="#" title="{{ i.displayName }}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="media/icons/memory_m.png"/>
+                                Плата: {{board}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="i in boards">
+                                    <a data-ng-click="setBoard(i)" ng-bind="i" href="#"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="" ng-click="terminal()"><img src="media/icons/console_big.png" /></a>
+                    </li>
+                    <li style="margin-right: 15px;">
+                        <img id="connect_img" src="media/icons/power-plug-off.png" />
+                    </li>
+                </ul>
+                </div>
+            </div>
+    </nav>
+</body>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="lib/underscore/underscore.js"></script>
+<script src="lib/highlight/highlight.pack.js"></script>
+<script src="lib/blockly-bq/blockly_compressed.js"></script>
+<script src="lib/blockly-bq/blocks_compressed.js"></script>
+<script src="lib/blockly-bq/arduino_compressed.js"></script>
+<script src="lib/roboblocks.js"></script>
+
+<script src="js/main.js" type="application/javascript"></script>
+
+</html>

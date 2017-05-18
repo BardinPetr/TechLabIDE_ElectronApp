@@ -1,0 +1,37 @@
+{
+    "name": "techlab-ide-native",
+    "version": "0.1.0",
+    "description": "TODO",
+    "main": "app.js",
+    "window": {
+        "title": "TechLabIDE",
+        "fullscreen": true,
+        "position": "center"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https//github.com/BardinPetr/TechLabIDE_ElectronApp.git"
+    },
+    "keywords": [
+        "arduino"
+    ],
+    "author": "Bardin Petr <bardin.petr@gmail.com>",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/BardinPetr/TechLabIDE_ElectronApp/issues"
+    },
+    "homepage": "https://github.com/BardinPetr/TechLabIDE_ElectronApp",
+    "dependencies": {
+        "electron": "^1.6.8",
+        "electron-prebuilt": "^1.4.13",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "electron_packager": "^1.0.5"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\"",
+        "start": "electron .",
+        "build": "electron-packager . myApp --platform=win32 --arch=x64 --version=1.6.8 --app-version=0.1.0 --out=dist --ignore=dist --prune"
+    }
+}
