@@ -3,8 +3,20 @@
  */
 var ports = [];
 var port = null;
+var boards = [];
+var board = null;
+
+var c_fail = $("#popup_fail_c");
+var c_ok = $("#popup_ok_c");
+var u_ok = $("#popup_ok_u");
+var u_fail = $("#popup_fail_u");
+var c_start = $("#popup_started");
 
 const { ipcRenderer } = require('electron');
+
+function log(e) {
+    console.log(e);
+}
 
 $("#close").click(function() {
     ipcRenderer.send('close');
@@ -15,10 +27,14 @@ $("#min").click(function() {
 
 
 $("#upload").click(function() {
-    ipcRenderer.send('upload');
+    ipcRenderer.send('upload', _get_code());
+    c_start.show();
+    c_start.fadeOut(3000);
 });
 $("#compile").click(function() {
-    ipcRenderer.send('compile');
+    ipcRenderer.send('compile', _get_code());
+    c_start.show();
+    c_start.fadeOut(3000);
 });
 
 
@@ -64,8 +80,23 @@ function resetWS() {
     Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xml2);
 }
 
+
+function setBoard(id) {
+    board = boards[id];
+    ipcRenderer.send('boardSelected', board);
+}
+
 function updateBoards() {
-    var _boards = require("/app/js/boards.js").boards;
+    var _boards = [{
+        name: "uno",
+        aname: "arduino:avr:uno"
+    }, {
+        name: "nano",
+        aname: "arduino:avr:nano:cpu=atmega328"
+    }, {
+        name: "mega",
+        aname: "arduino:avr:uno"
+    }];
 
     boards = _boards;
     if (board == null) board = _boards[0];
@@ -101,4 +132,19 @@ ipcRenderer.on('portsRefresh', function(e, arr) {
         ul.append('<li><a href="#" onclick="setPort(' + i.toString() + ')">' + el.comName + '</a></li>');
         i++;
     }, this);
+});
+
+
+/*
+ * Upload and compile
+ */
+
+ipcRenderer.on('c', function(e, arr) {
+    (arr ? c_ok : c_fail).show();
+    (arr ? c_ok : c_fail).fadeOut(7000);
+});
+
+ipcRenderer.on('u', function(e, arr) {
+    (arr ? u_ok : u_fail).show();
+    (arr ? u_ok : u_fail).fadeOut(7000);
 });

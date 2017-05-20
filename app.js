@@ -13,6 +13,11 @@ var mainWindow = null;
 global.sender = null;
 
 var savedFile = null;
+var board = {
+    name: "nano",
+    aname: "arduino:avr:nano:cpu=atmega328"
+};
+var port = null;
 
 app.on('window-all-closed', function() {
     if (process.platform !== 'darwin') {
@@ -47,13 +52,12 @@ app.on('ready', function() {
 ipcMain.on('ready', function(e, d) {
     global.sender = e.sender;
     Avrgirl.list(function(err, ports) {
-        console.log(ports);
         global.sender.send('portsRefresh', ports);
+        port = ports[0];
     });
 
     setInterval(function() {
         Avrgirl.list(function(err, ports) {
-            console.log(ports);
             global.sender.send('portsRefresh', ports);
         });
     }, 5000);
@@ -68,11 +72,34 @@ ipcMain.on('min', function() {
 });
 
 
-ipcMain.on('compile', function() {
-    //TODO
+ipcMain.on('compile', function(e, d) {
+    get_hex(d, function(res, c) {
+        global.sender.send("c", (c == 0 ? true : false));
+    });
 });
-ipcMain.on('upload', function() {
-    //TODO
+ipcMain.on('upload', function(e, d) {
+    get_hex(d, function(res, c) {
+        var avrgirl = new Avrgirl({
+            board: board.name,
+            port: port.comName,
+            debug: true
+        });
+        var fs = require('fs');
+        fs.writeFile("data.hex", res, function(err) {
+            if (err) {
+                log("write file err")
+            } else {
+                avrgirl.flash("data.hex", function(error) {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.info('done.');
+                    }
+                    global.sender.send("u", (error ? false : true));
+                });
+            }
+        });
+    });
 });
 
 
@@ -104,6 +131,18 @@ ipcMain.on('set', function() {
     //TODO
 });
 
+
+ipcMain.on('boardSelected', function(e, d) {
+    board = d;
+});
+
+ipcMain.on('portSelected', function(e, d) {
+    port = d;
+});
+
+function log(e) {
+    console.log(e);
+}
 
 /*
  * File methods
@@ -143,4 +182,32 @@ function saveFileC(d) {
         if (fileName === undefined) return;
         fs.writeFile(fileName, d, function(err) {});
     });
+}
+
+/*
+ * Code processing
+ */
+function get_hex(code, cb) {
+    var http = require('http');
+    var options = {
+        host: 'bardin.petr.fvds.ru',
+        port: 2000,
+        path: '/?data=' + encodeURI(JSON.stringify({ "board": board.aname, "sketch": code }))
+    };
+
+    callback = function(response) {
+        var str = '';
+
+        response.on('data', function(chunk) {
+            str += chunk;
+        });
+        response.on('end', function() {
+            console.log('compilation finished');
+            var data = JSON.parse(str);
+            cb(data.hex, data.code);
+        });
+    }
+
+    http.request(options, callback).end();
+    console.log('compilation started');
 }

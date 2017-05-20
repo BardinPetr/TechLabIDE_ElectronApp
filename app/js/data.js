@@ -9,4 +9,4 @@ var data = [{
     "aName": "arduin:avr:uno"
 }];
 
-module.exports.boards = data;
+module.exports = data;
