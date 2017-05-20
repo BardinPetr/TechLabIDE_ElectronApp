@@ -68,8 +68,6 @@ $(function() {
         roboblocks_init();
         resetWS();
 
-        updateBoards();
-
         ipcRenderer.send('ready');
     }, 200);
 });
@@ -84,31 +82,6 @@ function resetWS() {
 function setBoard(id) {
     board = boards[id];
     ipcRenderer.send('boardSelected', board);
-}
-
-function updateBoards() {
-    var _boards = [{
-        name: "uno",
-        aname: "arduino:avr:uno"
-    }, {
-        name: "nano",
-        aname: "arduino:avr:nano:cpu=atmega328"
-    }, {
-        name: "mega",
-        aname: "arduino:avr:uno"
-    }];
-
-    boards = _boards;
-    if (board == null) board = _boards[0];
-
-    var ul = $("#boardsList");
-    ul.html("");
-
-    var i = 0;
-    _boards.forEach(function(el) {
-        ul.append('<li><a href="#" onclick="setBoard(' + i.toString() + ')">' + el.name + '</a></li>');
-        i++;
-    }, this);
 }
 
 /*
@@ -134,11 +107,23 @@ ipcRenderer.on('portsRefresh', function(e, arr) {
     }, this);
 });
 
+ipcRenderer.on('boardsRefresh', function(e, arr) {
+    boards = arr;
+    if (board == null) board = arr[0];
+
+    var ul = $("#boardsList");
+    ul.html("");
+
+    var i = 0;
+    arr.forEach(function(el) {
+        ul.append('<li><a href="#" onclick="setBoard(' + i.toString() + ')">' + el.name + '</a></li>');
+        i++;
+    }, this);
+});
 
 /*
  * Upload and compile
  */
-
 ipcRenderer.on('c', function(e, arr) {
     (arr ? c_ok : c_fail).show();
     (arr ? c_ok : c_fail).fadeOut(7000);

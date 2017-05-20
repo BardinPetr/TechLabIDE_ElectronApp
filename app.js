@@ -13,11 +13,10 @@ var mainWindow = null;
 global.sender = null;
 
 var savedFile = null;
-var board = {
-    name: "nano",
-    aname: "arduino:avr:nano:cpu=atmega328"
-};
+var board = null;
 var port = null;
+
+var onlyMainBoards = true;
 
 app.on('window-all-closed', function() {
     if (process.platform !== 'darwin') {
@@ -61,6 +60,10 @@ ipcMain.on('ready', function(e, d) {
             global.sender.send('portsRefresh', ports);
         });
     }, 5000);
+
+    boards = get_boards();
+    global.sender.send('boardsRefresh', boards);
+    board = boards[0];
 });
 
 
@@ -69,6 +72,11 @@ ipcMain.on('close', function() {
 });
 ipcMain.on('min', function() {
     mainWindow.minimize();
+});
+
+
+ipcMain.on('setOMB', function(e, d) {
+    onlyMainBoards = d;
 });
 
 
@@ -210,4 +218,12 @@ function get_hex(code, cb) {
 
     http.request(options, callback).end();
     console.log('compilation started');
+}
+
+function get_boards() {
+    var b = require('./boards.js');
+    if (onlyMainBoards) {
+        b = b.slice(0, 3);
+    }
+    return b;
 }
