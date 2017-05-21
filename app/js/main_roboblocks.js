@@ -3,6 +3,15 @@ if (window.roboblocksLanguage === undefined ||
     var roboblocksLanguage = 'ru';
 }
 
+function rb_update() {
+    $('.blocklySvg, #blockly').height('100%');
+    $('.blocklySvg').width('100%');
+    $('#code').height('100%');
+    $('#code').width('33%');
+    $('.blocklyTreeRow').height("26px");
+    $('.blocklyTreeRow').css("line-height", "26px");
+}
+
 function roboblocks_init() {
     RoboBlocks.load({
         zoom: 0.5
@@ -16,12 +25,7 @@ function roboblocks_init() {
     Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(),
         document.getElementById('startBlocks'));
 
-    $('.blocklySvg, #blockly').height('100%');
-    $('.blocklySvg').width('100%');
-    $('#code').height('100%');
-    $('#code').width('33%');
-    $('.blocklyTreeRow').height("26px");
-    $('.blocklyTreeRow').css("line-height", "26px");
+    rb_update();
 
     var colors = [
         "",

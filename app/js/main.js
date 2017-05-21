@@ -63,6 +63,11 @@ $("#saveC").click(function() {
 });
 
 
+$("#term").click(function() {
+    ipcRenderer.send('terminal', port);
+});
+
+
 $(function() {
     setTimeout(function() {
         roboblocks_init();
@@ -70,6 +75,9 @@ $(function() {
 
         ipcRenderer.send('ready');
     }, 200);
+    setInterval(function() {
+        rb_update();
+    }, 1000);
 });
 
 function resetWS() {
@@ -83,6 +91,10 @@ function setBoard(id) {
     board = boards[id];
     ipcRenderer.send('boardSelected', board);
 }
+
+ipcRenderer.on('rb_update()', function(e, arr) {
+    rb_update();
+});
 
 /*
  * Port

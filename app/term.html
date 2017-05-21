@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body style="background-color:#444;">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Terminal</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="min" href="#"><span class="glyphicon glyphicon-minus"></span></a></li>
+                <li><a id="max" href="#"><span class="glyphicon glyphicon-plus"></span></a></li>
+                <li><a id="close" href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="background-color:#444; padding-top:60px; width:100%;" id="c">
+        <div class="input-group">
+            <input id="sendText" type="text" class="form-control" placeholder="Send data">
+            <div class="input-group-btn">
+                <button id="send" class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-send"></i>
+                </button>
+            </div>
+        </div>
+        <br>
+        <div id="div_o" style="margin-left:auto; margin-right:auto; width:100%; overflow-y: scroll;">
+            <p id="output" style="width:100%; height: 100%; background-color: #333; color: #00ff00; font-family: courier; font-size: 14px; white-space: pre-line;"></p>
+        </div>
+        <div class="btn-group">
+            <div class="btn-group dropup" for="abc">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Скорость<span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu">
+                    <li><a onclick="setBr(9600)" href="#">9600</a></li>
+                    <li><a onclick="setBr(38400)" href="#">38400</a></li>
+                    <li><a onclick="setBr(74800)" href="#">74800</a></li>
+                    <li><a onclick="setBr(115200)" href="#">115200</a></li>
+                </ul>
+            </div>
+            <div class="btn-group dropup" id="abc">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Конец строки<span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu">
+                    <li><a onclick="setNl('')" href="#">Нет</a></li>
+                    <li><a onclick="setNl('\n')" href="#">Новая строка</a></li>
+                    <li><a onclick="setNl('\r')" href="#">Перевод строки</a></li>
+                    <li><a onclick="setNl('\n\r')" href="#">NL+CR</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="lib/jquery/dist/jquery.js"></script>
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="js/term.js" type="application/javascript"></script>
+
+</html>

@@ -8,15 +8,24 @@ const BrowserWindow = electron.BrowserWindow;
 const { ipcMain } = require('electron');
 const fs = require('fs');
 var Avrgirl = require('avrgirl-arduino');
+var SerialPort = require("serialport");
+
+var sp = null;
 
 var mainWindow = null;
+var termWindow = null;
+var setWindow = null;
+
 global.sender = null;
+global.tSender = null;
 
 var savedFile = null;
 var board = null;
 var port = null;
 
 var onlyMainBoards = true;
+
+var baudR = 9600;
 
 app.on('window-all-closed', function() {
     if (process.platform !== 'darwin') {
@@ -42,6 +51,16 @@ app.on('ready', function() {
     mainWindow.on('closed', function() {
         mainWindow = null;
     });
+
+    termWindow = new BrowserWindow({
+        width: 770,
+        height: 500,
+        minWidth: 770,
+        minHeight: 510,
+        frame: false,
+        show: false
+    });
+    termWindow.loadURL('file://' + __dirname + '/app/term.html');
 });
 
 
@@ -68,10 +87,19 @@ ipcMain.on('ready', function(e, d) {
 
 
 ipcMain.on('close', function() {
-    app.quit();
+    if (!termWindow.isVisible()) {
+        app.quit();
+    } else {
+        termWindow.hide();
+        sp.close();
+        sp = null;
+    }
 });
 ipcMain.on('min', function() {
-    mainWindow.minimize();
+    (!termWindow.isVisible() ? mainWindow : termWindow).minimize();
+});
+ipcMain.on('max', function() {
+    termWindow.maximize();
 });
 
 
@@ -227,3 +255,81 @@ function get_boards() {
     }
     return b;
 }
+
+/*
+ * Terminal
+ */
+
+ipcMain.on("terminal", function(e, d) {
+    termWindow.show();
+    port = d;
+});
+
+ipcMain.on("tLoad", function(e, d) {
+    termWindow.addListener("resize", function() {
+        e.sender.send("resized");
+    });
+    global.tSender = e.sender;
+
+    try {
+        sp = new SerialPort(port.comName, {
+            baudRate: baudR
+        });
+        sp.on('error', function(err) {
+            console.log('Error: ', err.message);
+        });
+        sp.on('open', function() {
+            log("port opened");
+            e.sender.send("portOk");
+        });
+        sp.on('data', function(data) {
+            data = ab2str(data);
+            global.tSender.send("_rec", data)
+        });
+    } catch (ex) {
+        log(ex);
+    }
+});
+
+ipcMain.on("_send", function(e, d) {
+    sp.write(d);
+});
+
+ipcMain.on("br_ch", function(e, d) {
+    baudR = d;
+    try {
+        sp.close()
+        sp = null;
+        sp = new SerialPort(port.comName, {
+            baudRate: baudR
+        });
+        sp.on('error', function(err) {
+            console.log('Error: ', err.message);
+        });
+        sp.on('open', function() {
+            log("port opened");
+            e.sender.send("portOk");
+        });
+        sp.on('data', function(data) {
+            data = ab2str(data);
+            global.tSender.send("_rec", data)
+        });
+    } catch (ex) {
+        log(ex);
+    }
+});
+
+var ab2str = function(buf) {
+    var bufView = new Uint8Array(buf);
+    var encodedString = String.fromCharCode.apply(null, bufView);
+    return decodeURIComponent(escape(encodedString));
+};
+
+var str2ab = function(str) {
+    var encodedString = str;
+    var bytes = new Uint8Array(encodedString.length);
+    for (var i = 0; i < encodedString.length; ++i) {
+        bytes[i] = encodedString.charCodeAt(i);
+    }
+    return bytes.buffer;
+};
