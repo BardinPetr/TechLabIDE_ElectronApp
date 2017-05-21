@@ -61,6 +61,8 @@ app.on('ready', function() {
         show: false
     });
     termWindow.loadURL('file://' + __dirname + '/app/term.html');
+
+    onlyMainBoards = require("./settings.json").onlyMainBoards;
 });
 
 
@@ -69,13 +71,34 @@ app.on('ready', function() {
  */
 ipcMain.on('ready', function(e, d) {
     global.sender = e.sender;
-    Avrgirl.list(function(err, ports) {
+    Avrgirl.list(function(err, _ports) {
+        var ports = [];
+        if (require("./settings.json").disableSoftwarePorts) {
+            _ports.forEach(function(el) {
+                if (!(el.vendorId === undefined || el.productId === undefined)) {
+                    ports.concat(el);
+                }
+            }, this);
+        } else {
+            ports = _ports;
+        }
         global.sender.send('portsRefresh', ports);
         port = ports[0];
+        log(ports[0])
     });
 
     setInterval(function() {
-        Avrgirl.list(function(err, ports) {
+        Avrgirl.list(function(err, _ports) {
+            var ports = [];
+            if (require("./settings.json").disableSoftwarePorts) {
+                _ports.forEach(function(el) {
+                    if (!(el.vendorId === undefined || el.productId === undefined)) {
+                        ports.concat(el);
+                    }
+                }, this);
+            } else {
+                ports = _ports;
+            }
             global.sender.send('portsRefresh', ports);
         });
     }, 5000);
@@ -114,6 +137,12 @@ ipcMain.on('compile', function(e, d) {
     });
 });
 ipcMain.on('upload', function(e, d) {
+    if (port === undefined) {
+        e.sender.send("noport");
+        return;
+    } else {
+        e.sender.send("cstart");
+    }
     get_hex(d, function(res, c) {
         var avrgirl = new Avrgirl({
             board: board.name,
@@ -177,7 +206,9 @@ ipcMain.on('portSelected', function(e, d) {
 });
 
 function log(e) {
-    console.log(e);
+    if (require("./settings.json").debug) {
+        console.log(e);
+    }
 }
 
 /*
@@ -226,8 +257,8 @@ function saveFileC(d) {
 function get_hex(code, cb) {
     var http = require('http');
     var options = {
-        host: 'bardin.petr.fvds.ru',
-        port: 2000,
+        host: require("./settings.json").srv.url,
+        port: require("./settings.json").srv.port,
         path: '/?data=' + encodeURI(JSON.stringify({ "board": board.aname, "sketch": code }))
     };
 
@@ -238,14 +269,14 @@ function get_hex(code, cb) {
             str += chunk;
         });
         response.on('end', function() {
-            console.log('compilation finished');
+            log('compilation finished');
             var data = JSON.parse(str);
             cb(data.hex, data.code);
         });
     }
 
     http.request(options, callback).end();
-    console.log('compilation started');
+    log('compilation started');
 }
 
 function get_boards() {
@@ -276,7 +307,7 @@ ipcMain.on("tLoad", function(e, d) {
             baudRate: baudR
         });
         sp.on('error', function(err) {
-            console.log('Error: ', err.message);
+            log('Error: ' + err.message);
         });
         sp.on('open', function() {
             log("port opened");
@@ -304,7 +335,7 @@ ipcMain.on("br_ch", function(e, d) {
             baudRate: baudR
         });
         sp.on('error', function(err) {
-            console.log('Error: ', err.message);
+            log('Error: ' + err.message);
         });
         sp.on('open', function() {
             log("port opened");

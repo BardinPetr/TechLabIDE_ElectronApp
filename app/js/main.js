@@ -28,8 +28,6 @@ $("#min").click(function() {
 
 $("#upload").click(function() {
     ipcRenderer.send('upload', _get_code());
-    c_start.show();
-    c_start.fadeOut(3000);
 });
 $("#compile").click(function() {
     ipcRenderer.send('compile', _get_code());
@@ -144,4 +142,14 @@ ipcRenderer.on('c', function(e, arr) {
 ipcRenderer.on('u', function(e, arr) {
     (arr ? u_ok : u_fail).show();
     (arr ? u_ok : u_fail).fadeOut(7000);
+});
+
+ipcRenderer.on('noport', function(e, arr) {
+    $("#popup_noport").show();
+    $("#popup_noport").fadeOut(5000);
+});
+
+ipcRenderer.on('cstart', function(e, arr) {
+    c_start.show();
+    c_start.fadeOut(3000);
 });

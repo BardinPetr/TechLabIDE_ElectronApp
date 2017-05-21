@@ -1,0 +1,9 @@
+{
+    "debug": true,
+    "onlyMainBoards": true,
+    "disableSoftwarePorts": true,
+    "srv": {
+        "url": "bardin.petr.fvds.ru",
+        "port": 2000
+    }
+}
