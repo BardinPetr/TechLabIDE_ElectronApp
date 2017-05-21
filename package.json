@@ -1,6 +1,6 @@
 {
   "name": "techlab-ide-native",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "TODO",
   "main": "app.js",
   "window": {
@@ -25,6 +25,7 @@
     "avrgirl-arduino": "2.1.0",
     "electron": "^1.6.8",
     "electron-prebuilt": "^1.4.13",
+    "electron-window-manager": "^1.0.4",
     "path": "^0.12.7",
     "serialport": "^4.0.7"
   },
@@ -35,6 +36,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "electron .",
-    "build": "electron-packager . myApp --platform=win32 --arch=x64 --version=1.6.8 --app-version=0.1.0 --out=dist --ignore=dist --prune"
+    "buildWin": "electron-packager . TechLabIDE --icon /app/media/icons/icon64.ico --platform=win32 --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite --win32metadata.CompanyName=\"RoboNEL\" --win32metadata.ProductName=\"TechLabIDE-Visual programming IDE\" --win32metadata.requestedExecutionLevel=\"asInvoker\"",
+    "buildMac": "electron-packager . TechLabIDE --icon /app/media/icons/icon64.icns --platform=darvin --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite && electron-packager . TechLabIDE --icon /app/media/icons/icon64.icns --platform=mas --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite",
+    "buildLin": "electron-packager . TechLabIDE --icon /app/media/icons/icon64.png --platform=linux --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite",
+    "build": "npm run buildWin && npm run buildMac && npm run buildLin"
   }
 }
