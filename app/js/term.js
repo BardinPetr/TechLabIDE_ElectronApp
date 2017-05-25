@@ -1,6 +1,10 @@
 const { ipcRenderer } = require('electron');
+const SerialPort = require('serialport');
 
 var nl = '\n';
+var br = 9600;
+var sp = null;
+var port = null;
 
 function log(e) {
     console.log(e);
@@ -14,8 +18,8 @@ function update() {
 $(function() {
     setTimeout(function() {
         update();
-        ipcRenderer.send("tLoad");
         $("#c").addClass("disabled");
+        ipcRenderer.send("termRun");
     }, 100);
 });
 
@@ -36,36 +40,93 @@ function clearOutput() {
 }
 
 $("#min").click(function() {
-    ipcRenderer.send('min');
+    ipcRenderer.send('Tmin');
 });
 $("#max").click(function() {
-    ipcRenderer.send('max');
+    ipcRenderer.send('Tmax');
 });
 $("#close").click(function() {
-    ipcRenderer.send('close');
+    ipcRenderer.send('Tclose');
 });
 
 /*
  * Port
  */
 
-$("#send").click(function() {
-    ipcRenderer.send("_send", $("#sendText").val() + nl);
-    $("#sendText").val("");
+ipcRenderer.on("TcloseNow", function() {
+    try {
+        sp.close();
+        sp = null;
+    } catch (ex) {
+
+    }
 })
 
-ipcRenderer.on("_rec", function(e, d) {
-    appendOutput(d);
-});
+
+$("#send").click(function() {
+    try {
+        sp.write(str2ab($("#sendText").val() + nl));
+        $("#sendText").val("");
+    } catch (ex) {
+        log(ex)
+    }
+})
 
 ipcRenderer.on("portOk", function(e, d) {
-    $("#c").removeClass("disabled");
+    port = d;
+    openPort();
 })
 
 function setNl(ch) {
     nl = ch;
 }
 
-function setBr(sp) {
-    ipcRenderer.send("br_ch", sp);
+function setBr(_br) {
+    br = _br;
+    try {
+        sp.close(() => { openPort(); });
+    } catch (ex) {
+        log(ex);
+    }
 }
+
+function openPort() {
+    try {
+        sp = new SerialPort(port.comName, {
+            baudRate: br
+        });
+        sp.on('error', function(err) {
+            log('Error: ' + err.message);
+        });
+        sp.on('open', function() {
+            log("port opened");
+            $("#c").removeClass("disabled");
+        });
+        sp.on('data', function(data) {
+            data = ab2str(data);
+            appendOutput(data);
+        });
+    } catch (ex) {
+        log(ex);
+    }
+}
+
+var ab2str = function(buf) {
+    try {
+        var bufView = new Uint8Array(buf);
+        var encodedString = String.fromCharCode.apply(null, bufView);
+        return decodeURIComponent(escape(encodedString));
+    } catch (ex) {
+        log(ex);
+        return "!!!Неправильная скорость!!!\n"
+    }
+};
+
+var str2ab = function(str) {
+    var encodedString = str;
+    var bytes = new Uint8Array(encodedString.length);
+    for (var i = 0; i < encodedString.length; ++i) {
+        bytes[i] = encodedString.charCodeAt(i);
+    }
+    return bytes.buffer;
+};

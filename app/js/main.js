@@ -13,6 +13,8 @@ var u_fail = $("#popup_fail_u");
 var c_start = $("#popup_started");
 
 const { ipcRenderer } = require('electron');
+const serialport = require('serialport');
+var settings;
 
 function log(e) {
     console.log(e);
@@ -103,20 +105,6 @@ function setPort(id) {
     ipcRenderer.send('portSelected', port);
 }
 
-ipcRenderer.on('portsRefresh', function(e, arr) {
-    ports = arr;
-    if (port == null) port = arr[0];
-
-    var ul = $("#portList");
-    ul.html("");
-
-    var i = 0;
-    arr.forEach(function(el) {
-        ul.append('<li><a href="#" onclick="setPort(' + i.toString() + ')">' + el.comName + '</a></li>');
-        i++;
-    }, this);
-});
-
 ipcRenderer.on('boardsRefresh', function(e, arr) {
     boards = arr;
     if (board == null) board = arr[0];
@@ -153,3 +141,36 @@ ipcRenderer.on('cstart', function(e, arr) {
     c_start.show();
     c_start.fadeOut(3000);
 });
+
+ipcRenderer.on('run', function(e, arr) {
+    settings = arr;
+    sp_update();
+    setInterval(() => { sp_update() }, 1000);
+});
+
+function sp_update() {
+    serialport.list((err, arr) => {
+        ports = [];
+        if (settings.disableSoftwarePorts) {
+            arr.forEach(function(el) {
+                if (el.vendorId == undefined || el.productId == undefined) {} else {
+                    ports.push(el);
+                }
+            }, this);
+        } else {
+            ports = arr;
+        }
+
+        if (port == null) port = ports[0];
+        ipcRenderer.send("portSelected", port);
+
+        var ul = $("#portList");
+        ul.html("");
+
+        var i = 0;
+        ports.forEach(function(el) {
+            ul.append('<li><a href="#" onclick="setPort(' + i.toString() + ')">' + el.comName + '</a></li>');
+            i++;
+        }, this);
+    });
+}

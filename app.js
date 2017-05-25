@@ -21,7 +21,8 @@ global.tSender = null;
 
 var savedFile = null;
 var board = null;
-var port = null;
+var port = {};
+global.sPort = null;
 
 var onlyMainBoards = true;
 
@@ -46,7 +47,7 @@ app.on('ready', function() {
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
     mainWindow.maximize();
 
-    mainWindow.webContents.openDevTools();
+    if (require("./settings.json").debug) mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', function() {
         mainWindow = null;
@@ -71,57 +72,28 @@ app.on('ready', function() {
  */
 ipcMain.on('ready', function(e, d) {
     global.sender = e.sender;
-    Avrgirl.list(function(err, _ports) {
-        var ports = [];
-        if (require("./settings.json").disableSoftwarePorts) {
-            _ports.forEach(function(el) {
-                if (!(el.vendorId === undefined || el.productId === undefined)) {
-                    ports.concat(el);
-                }
-            }, this);
-        } else {
-            ports = _ports;
-        }
-        global.sender.send('portsRefresh', ports);
-        port = ports[0];
-        log(ports[0])
-    });
-
-    setInterval(function() {
-        Avrgirl.list(function(err, _ports) {
-            var ports = [];
-            if (require("./settings.json").disableSoftwarePorts) {
-                _ports.forEach(function(el) {
-                    if (!(el.vendorId === undefined || el.productId === undefined)) {
-                        ports.concat(el);
-                    }
-                }, this);
-            } else {
-                ports = _ports;
-            }
-            global.sender.send('portsRefresh', ports);
-        });
-    }, 5000);
-
     boards = get_boards();
     global.sender.send('boardsRefresh', boards);
     board = boards[0];
+    global.sender.send('run', require("./settings.json"));
 });
 
 
 ipcMain.on('close', function() {
-    if (!termWindow.isVisible()) {
-        app.quit();
-    } else {
-        termWindow.hide();
-        sp.close();
-        sp = null;
-    }
+    app.quit();
 });
 ipcMain.on('min', function() {
-    (!termWindow.isVisible() ? mainWindow : termWindow).minimize();
+    mainWindow.minimize();
 });
-ipcMain.on('max', function() {
+
+ipcMain.on('Tclose', function(e, d) {
+    e.sender.send("TcloseNow");
+    termWindow.hide();
+});
+ipcMain.on('Tmin', function() {
+    termWindow.minimize();
+});
+ipcMain.on('Tmax', function() {
     termWindow.maximize();
 });
 
@@ -203,6 +175,7 @@ ipcMain.on('boardSelected', function(e, d) {
 
 ipcMain.on('portSelected', function(e, d) {
     port = d;
+    global.sPort = d;
 });
 
 function log(e) {
@@ -292,75 +265,22 @@ function get_boards() {
  */
 
 ipcMain.on("terminal", function(e, d) {
+    termWindow = new BrowserWindow({
+        width: 770,
+        height: 500,
+        minWidth: 770,
+        minHeight: 510,
+        frame: false,
+        show: false
+    });
+    termWindow.loadURL('file://' + __dirname + '/app/term.html');
     termWindow.show();
-    port = d;
-});
-
-ipcMain.on("tLoad", function(e, d) {
     termWindow.addListener("resize", function() {
         e.sender.send("resized");
     });
-    global.tSender = e.sender;
-
-    try {
-        sp = new SerialPort(port.comName, {
-            baudRate: baudR
-        });
-        sp.on('error', function(err) {
-            log('Error: ' + err.message);
-        });
-        sp.on('open', function() {
-            log("port opened");
-            e.sender.send("portOk");
-        });
-        sp.on('data', function(data) {
-            data = ab2str(data);
-            global.tSender.send("_rec", data)
-        });
-    } catch (ex) {
-        log(ex);
-    }
+    ipcMain.on("termRun", function(_e, _d) {
+        setTimeout(() => {
+            _e.sender.send("portOk", d);
+        }, 1500);
+    })
 });
-
-ipcMain.on("_send", function(e, d) {
-    sp.write(d);
-});
-
-ipcMain.on("br_ch", function(e, d) {
-    baudR = d;
-    try {
-        sp.close()
-        sp = null;
-        sp = new SerialPort(port.comName, {
-            baudRate: baudR
-        });
-        sp.on('error', function(err) {
-            log('Error: ' + err.message);
-        });
-        sp.on('open', function() {
-            log("port opened");
-            e.sender.send("portOk");
-        });
-        sp.on('data', function(data) {
-            data = ab2str(data);
-            global.tSender.send("_rec", data)
-        });
-    } catch (ex) {
-        log(ex);
-    }
-});
-
-var ab2str = function(buf) {
-    var bufView = new Uint8Array(buf);
-    var encodedString = String.fromCharCode.apply(null, bufView);
-    return decodeURIComponent(escape(encodedString));
-};
-
-var str2ab = function(str) {
-    var encodedString = str;
-    var bytes = new Uint8Array(encodedString.length);
-    for (var i = 0; i < encodedString.length; ++i) {
-        bytes[i] = encodedString.charCodeAt(i);
-    }
-    return bytes.buffer;
-};
