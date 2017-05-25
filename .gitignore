@@ -122,4 +122,5 @@ fabric.properties
 .idea/sonarlint
 
 # Dist
-dist/
+/dist/
+data.hex
