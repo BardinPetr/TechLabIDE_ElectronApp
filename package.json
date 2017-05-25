@@ -41,6 +41,6 @@
         "buildMac": "electron-packager . TechLabIDE --icon /app/media/icons/icon64.icns --platform=darvin --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite && electron-packager . TechLabIDE --icon /app/media/icons/icon64.icns --platform=mas --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite",
         "buildLin": "electron-packager . TechLabIDE --icon /app/media/icons/icon64.png --platform=linux --arch=x64 --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite",
         "build": "npm run buildWin && npm run buildMac && npm run buildLin",
-        "spRebuild": "cd /node_modules/serialport &&  HOME=~/.electron-gyp node-gyp rebuild --target=1.4.13 --arch=x64 --dist-url=https://atom.io/download/electron"
+        "spRebuild": "cd node_modules/serialport &&  HOME=~/.electron-gyp node-gyp rebuild --target=1.6.8 --arch=x64 --dist-url=https://atom.io/download/electron"
     }
 }
