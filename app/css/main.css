@@ -37,3 +37,7 @@ code {
     pointer-events: none;
     opacity: 0.4;
 }
+
+.setText {
+    color: #FFFFFF
+}

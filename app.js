@@ -41,7 +41,8 @@ app.on('ready', function() {
         resizable: false,
         frame: false,
         icon: "app/media/icon64.png",
-        title: "TechLabIDE"
+        title: "TechLabIDE",
+        show: true
     });
 
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
@@ -62,6 +63,16 @@ app.on('ready', function() {
         show: false
     });
     termWindow.loadURL('file://' + __dirname + '/app/term.html');
+
+    setWindow = new BrowserWindow({
+        width: 770,
+        height: 500,
+        minWidth: 770,
+        minHeight: 510,
+        frame: false,
+        show: false
+    });
+    setWindow.loadURL('file://' + __dirname + '/app/set.html');
 
     onlyMainBoards = require("./settings.json").onlyMainBoards;
 });
@@ -97,11 +108,9 @@ ipcMain.on('Tmax', function() {
     termWindow.maximize();
 });
 
-
-ipcMain.on('setOMB', function(e, d) {
-    onlyMainBoards = d;
+ipcMain.on('Sclose', function(e, d) {
+    setWindow.hide();
 });
-
 
 ipcMain.on('compile', function(e, d) {
     get_hex(d, function(res, c) {
@@ -165,9 +174,26 @@ ipcMain.on('saveC', function(e, d) {
 
 
 ipcMain.on('set', function() {
-    //TODO
+    setWindow = new BrowserWindow({
+        width: 770,
+        height: 500,
+        minWidth: 770,
+        minHeight: 510,
+        frame: false,
+        show: false
+    });
+    setWindow.loadURL('file://' + __dirname + '/app/set.html');
+    setWindow.show();
+    setWindow.webContents.openDevTools();
+    ipcMain.on("setRun", function(_e, _d) {
+        setTimeout(() => {
+            _e.sender.send("setOk", require('./settings.json'));
+        }, 1000);
+    })
 });
-
+ipcMain.on("updateSettings", function(e, d) {
+    fs.writeFileSync("settings.json", JSON.stringify(d));
+})
 
 ipcMain.on('boardSelected', function(e, d) {
     board = d;

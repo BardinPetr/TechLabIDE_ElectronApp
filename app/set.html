@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body style="background-color:#444;">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Settings</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="close" href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="background-color:#444; padding-top:60px; width:100%;" id="c">
+        <div class="form-horizontal" href="">
+            <div class="form-group">
+                <label class="setText control-label col-sm-2" for="url">Server URL:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="url" placeholder="bardin.petr.fvds.ru">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="setText control-label col-sm-2" for="port">Server Port:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="port" placeholder="2000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="setText control-label col-sm-2" for="url">Show only main boards</label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <input id="omb" type="checkbox" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="setText control-label col-sm-2" for="url">Disable software serial ports</label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <input id="dssp" type="checkbox" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="setText control-label col-sm-2" for="url">Debug</label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <input id="debug" type="checkbox" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button href="#" id="sub" type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="lib/jquery/dist/jquery.js"></script>
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="js/set.js" type="application/javascript"></script>
+
+</html>

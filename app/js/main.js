@@ -68,6 +68,11 @@ $("#term").click(function() {
 });
 
 
+$("#set").click(function() {
+    ipcRenderer.send('set');
+});
+
+
 $(function() {
     setTimeout(function() {
         roboblocks_init();
