@@ -22,19 +22,18 @@
     },
     "homepage": "https://github.com/BardinPetr/TechLabIDE_ElectronApp",
     "dependencies": {
-        "avrgirl-arduino": "2.1.0",
-        "electron": "^1.6.8",
-        "electron-prebuilt": "^1.4.13",
-        "electron-window-manager": "^1.0.4",
+        "avrgirl-arduino": "^2.1.0",
         "path": "^0.12.7",
         "serialport": "^4.0.7"
     },
     "devDependencies": {
-        "electron-rebuild": "^1.5.11",
-        "electron_packager": "^1.0.5"
+        "electron": "^1.4.1",
+        "electron_packager": "^1.0.5",
+        "electron-rebuild": "^1.4.0",
+        "electron-prebuilt": "^1.4.13",
     },
     "scripts": {
-        "install": "npm run spRebuild",
+        "install": "electron-rebuild",
         "test": "echo \"Error: no test specified\"",
         "start": "electron .",
         "buildWin": "electron-packager . TechLabIDE --icon /app/media/icons/icon64.ico --platform=win32 --arch=x64 --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite --win32metadata.CompanyName=\"RoboNEL\" --win32metadata.ProductName=\"TechLabIDE-Visual programming IDE\" --win32metadata.requestedExecutionLevel=\"asInvoker\"",
