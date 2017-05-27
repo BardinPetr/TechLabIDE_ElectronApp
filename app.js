@@ -196,7 +196,7 @@ ipcMain.on('set', function() {
   ipcMain.on("setRun", function(_e, _d) {
     setTimeout(() => {
       _e.sender.send("setOk", require('./settings.json'));
-    }, 1000);
+    }, 500);
   })
 });
 ipcMain.on("updateSettings", function(e, d) {

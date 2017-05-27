@@ -160,7 +160,7 @@
 
 .can-toggle label .can-toggle__switch:before {
   left: 67px;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 36px;
   width: 67px;
   padding: 0 12px;
@@ -172,7 +172,7 @@
   border-radius: 2px;
   width: 65px;
   line-height: 32px;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .can-toggle label .can-toggle__switch:hover:after {
@@ -219,7 +219,7 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  font-size: 12pt;
+  font-size: 10pt;
   color: #EEE;
 }
 

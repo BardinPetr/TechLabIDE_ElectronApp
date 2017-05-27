@@ -187,18 +187,18 @@
                 LANG_BQ_POTENTIOMETER_TOOLTIP: 'Returns the analog value measured by the potentiometer.',
                 LANG_BQ_LED3: 'RGB led',
                 LANG_BQ_LED3_PINS: 'Led Pins',
-                LANG_BQ_LED3_PINR: 'RED PIN#',                
-                LANG_BQ_LED3_PING: 'GREEN PIN#',                
+                LANG_BQ_LED3_PINR: 'RED PIN#',
+                LANG_BQ_LED3_PING: 'GREEN PIN#',
                 LANG_BQ_LED3_PINB: 'BLUE PIN#',
                 LANG_BQ_LED3_PWMR: 'RED POWER#',
                 LANG_BQ_LED3_PWMG: 'GREEN POWER#',
                 LANG_BQ_LED3_PWMB: 'BLUE POWER#',
                 LANG_BQ_SOUND: 'Sound sensor',
-                LANG_BQ_SOUND_PIN: 'PIN#',              
+                LANG_BQ_SOUND_PIN: 'PIN#',
                 LANG_BQ_SMOKE: 'Smoke sensor',
-                LANG_BQ_SMOKE_PIN: 'PIN#',                
+                LANG_BQ_SMOKE_PIN: 'PIN#',
                 LANG_BQ_SOIL: 'Soil humidity sensor',
-                LANG_BQ_SOIL_PIN: 'PIN#',                
+                LANG_BQ_SOIL_PIN: 'PIN#',
                 LANG_BQ_VIBRO: 'Digital vibration sensor',
                 LANG_BQ_VIBRO_PIN: 'PIN#',
                 LANG_BQ_ACTZUM: 'Active buzzer',
@@ -461,7 +461,7 @@
                 LANG_ZUM_PHOTORESISTOR_TOOLTIP: 'Returns the analog value measured by the light sensor.',
                 LANG_ZUM_LINEA: 'Analog line sensor',
                 LANG_ZUM_LINEA_PIN: 'PIN#',
-                LANG_ZUM_LINEA_TOOLTIP: 'Returns the analog value measured by the light sensor.',                
+                LANG_ZUM_LINEA_TOOLTIP: 'Returns the analog value measured by the light sensor.',
                 LANG_ZUM_LINED: 'Digital line sensor',
                 LANG_ZUM_LINED_PIN: 'PIN#',
                 LANG_ZUM_LINED_TOOLTIP: 'Returns the digital value measured by the light sensor.',
@@ -504,9 +504,9 @@
                 LANG_SERVO_DCMOT: 'One DC Motor controll',
                 LANG_SERVO_DCMOTX2: 'Two DC Motor controll',
                 LANG_SERVO_DCMOT_PINA: 'DIR PIN#',
-                LANG_SERVO_DCMOT_PINB: 'PWM PIN#',                
+                LANG_SERVO_DCMOT_PINB: 'PWM PIN#',
                 LANG_SERVO_DCMOT_DF: 'Forward',
-                LANG_SERVO_DCMOT_DB: 'Backward',                
+                LANG_SERVO_DCMOT_DB: 'Backward',
                 LANG_SERVO_DCMOT_DL: 'Left',
                 LANG_SERVO_DCMOT_DR: 'Right',
                 LANG_SERVO_DCMOT_DR: 'Stop',
@@ -663,25 +663,25 @@
                         
                         LANG_BQ_LED3: 'RGB led',
                         LANG_BQ_LED3_PINS: 'Пина светодиода',
-                        LANG_BQ_LED3_PINR: 'Красный#',                
-                        LANG_BQ_LED3_PING: 'Зеленый#',                
+                        LANG_BQ_LED3_PINR: 'Красный#',
+                        LANG_BQ_LED3_PING: 'Зеленый#',
                         LANG_BQ_LED3_PINB: 'Синий#',
                         LANG_BQ_LED3_PWMR: 'Мощность Красного',
                         LANG_BQ_LED3_PWMG: 'Мощность Зеленого',
                         LANG_BQ_LED3_PWMB: 'Мощность Синего',
                         LANG_BQ_SOUND: 'Датчик звука',
-                        LANG_BQ_SOUND_PIN: 'PIN#',              
+                        LANG_BQ_SOUND_PIN: 'PIN#',
                         LANG_BQ_SMOKE: 'Датчик газа',
-                        LANG_BQ_SMOKE_PIN: 'PIN#',                
+                        LANG_BQ_SMOKE_PIN: 'PIN#',
                         LANG_BQ_SOIL: 'Датчик влажности почвы',
-                        LANG_BQ_SOIL_PIN: 'PIN#',                
+                        LANG_BQ_SOIL_PIN: 'PIN#',
                         LANG_BQ_VIBRO: 'Датчик вибрации',
                         LANG_BQ_VIBRO_PIN: 'PIN#',
                         LANG_BQ_ACTZUM: 'Активная пищалка',
                         LANG_BQ_TEMP: 'Датчик температуры',
                         LANG_BQ_TEMP_PIN: 'PIN#',
                         LANG_BQ_TEMP_INDEX: 'Индекс',
-                
+
                  // ЖК блоки:
                         LANG_CATEGORY_LCD: 'Блоки ЖК',
                         LANG_LCD_DEF: 'ЖК-дисплей (2x16) ',
@@ -937,10 +937,10 @@
                         LANG_ZUM_PHOTORESISTOR_TOOLTIP: 'Возвращает аналоговое значение датчика света (фоторезистора).',
                         LANG_ZUM_LINEA: 'Аналоговый дачик линии',
                         LANG_ZUM_LINEA_PIN: 'PIN#',
-                        LANG_ZUM_LINEA_TOOLTIP: '',                
+                        LANG_ZUM_LINEA_TOOLTIP: '',
                         LANG_ZUM_LINED: 'Цифровой дачик линии',
                         LANG_ZUM_LINED_PIN: 'PIN#',
-                        LANG_ZUM_LINED_TOOLTIP: '',                        
+                        LANG_ZUM_LINED_TOOLTIP: '',
                         LANG_ZUM_PIEZO_BUZZER: 'Звукоизлучатель',
                         LANG_ZUM_PIEZO_BUZZER_PIN: 'PIN# ',
                         LANG_ZUM_PIEZO_BUZZER_TONE: 'Тон',
@@ -980,9 +980,9 @@
                         LANG_SERVO_DCMOT: 'Управление одним мотором',
                         LANG_SERVO_DCMOTX2: 'Управление робоплатформой',
                         LANG_SERVO_DCMOT_PINA: 'DIR PIN#',
-                        LANG_SERVO_DCMOT_PINB: 'PWM PIN#',                
+                        LANG_SERVO_DCMOT_PINB: 'PWM PIN#',
                         LANG_SERVO_DCMOT_DF: 'Вперед',
-                        LANG_SERVO_DCMOT_DB: 'Назад',                
+                        LANG_SERVO_DCMOT_DB: 'Назад',
                         LANG_SERVO_DCMOT_DL: 'Налево',
                         LANG_SERVO_DCMOT_DR: 'Направо',
                         LANG_SERVO_DCMOT_DR: 'Стоп',
@@ -1173,7 +1173,7 @@
             var blo = {};
 
             for (var block in this.Blocks) {
-                // important check that this is objects own property 
+                // important check that this is objects own property
                 // not from prototype prop inherited
                 if (this.Blocks.hasOwnProperty(block) && this.Blocks[block] instanceof Object && this.Blocks[block].category) {
                     var category = this.Blocks[block].category;
@@ -1187,9 +1187,9 @@
             var categoryItem = function(type) {
                 toolbox += '<block type="' + type + '"></block>';
             };
-            
-            var bidsE = ['Variables', 'Logic', 'Control', 'Pin functions', 'Functions', 'Math', 'Communication', 'LCD bloqs', 'Servo', 'Zum bloqs', 'Octopus bloqs'];
-            var bidsR = ['Переменная', 'Логические', 'Контроль', 'Функции портов', 'Функции', 'Математика', 'Коммуникации', 'Блоки ЖК', 'Сервоприводы', 'Блоки Zum', 'Блоки Octopus'];
+
+            var bidsE = ['Variables', 'Logic', 'Control', 'Pin functions', 'Functions', 'Math', 'Text', 'Communication', 'LCD bloqs', 'Servo', 'Zum bloqs', 'Octopus bloqs'];
+            var bidsR = ['Переменная', 'Логические', 'Контроль', 'Функции портов', 'Функции', 'Математика', 'Текст', 'Коммуникации', 'Блоки ЖК', 'Сервоприводы', 'Блоки Zum', 'Блоки Octopus'];
             var name = "";
 
             var lng = (blocks[bidsE[0]] == undefined?true:false);
@@ -1197,7 +1197,7 @@
 
             for(var i in bids){
                 name = bids[i];
-                
+
                 toolbox += '<category id="' + name + '" name="' + name + '">';
                 blocks[name].forEach(categoryItem);
                 toolbox += '</category>';
@@ -1326,11 +1326,11 @@
             with(obj) {
                 __p += 'int motor1A = ' +
                     ((__t = (pin1a)) == null ? '' : __t) +
-                    ';\nint motor1B = ' + 
+                    ';\nint motor1B = ' +
                     ((__t = (pin1b)) == null ? '' : __t) +
                     ';\nint motor2A = ' +
                     ((__t = (pin2a)) == null ? '' : __t) +
-                    ';\nint motor2B = ' + 
+                    ';\nint motor2B = ' +
                     ((__t = (pin2b)) == null ? '' : __t) +
                     ';';
             }
@@ -1345,8 +1345,8 @@
                 __p += 'void motors(int power, char dir){ //f-forward,b-backward,l-left,r-right,s-stop\n  if(dir == \'f\'){\n    digitalWrite(motor1A, 0);\n    analogWrite(motor1B, power);    \n    digitalWrite(motor2A, 0);\n    analogWrite(motor2B, power);    \n  }\n  else if(dir == \'b\'){\n  digitalWrite(motor1A, 1);\n    analogWrite(motor1B, 255-power);    \n    digitalWrite(motor2A, 1);\n    analogWrite(motor2B, 255-power);\n  }\n  else if(dir == \'l\'){\n    digitalWrite(motor1A, 0);\n    analogWrite(motor1B, power);   \n    digitalWrite(motor2A, 1);\n    analogWrite(motor2B, 255-power);\n  }  \n  else if(dir == \'r\'){\n    digitalWrite(motor1A, 1);\n    analogWrite(motor1B, 255-power);   \n    digitalWrite(motor2A, 0);\n    analogWrite(motor2B, power);\n  }\n  else{\n    digitalWrite(motor1A, 0);\n    analogWrite(motor1B, 0);     \n    digitalWrite(motor2A, 0);\n    analogWrite(motor2B, 0);   \n  }\n}';
             }
             return __p
-        };        
-        
+        };
+
         this["JST"]["servo_motx2_init_setup"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -1363,10 +1363,10 @@
                 __e = _.escape;
             with(obj) {
                 __p += 'motor(' +
-                    ((__t = (power)) == null ? '' : __t) + 
+                    ((__t = (power)) == null ? '' : __t) +
                     ', ' +
                     ((__t = (dir)) == null ? '' : __t) +
-                    ');' 
+                    ');'
             }
             return __p
         };
@@ -1377,8 +1377,8 @@
                 __e = _.escape;
             with(obj) {
                 __p += 'motor(' +
-                    ((__t = (power)) == null ? '' : __t) + 
-                    ');' 
+                    ((__t = (power)) == null ? '' : __t) +
+                    ');'
             }
             return __p
         };
@@ -1391,7 +1391,7 @@
             with(obj) {
                 __p += 'int motor1A = ' +
                     ((__t = (pin1a)) == null ? '' : __t) +
-                    ';\nint motor1B = ' + 
+                    ';\nint motor1B = ' +
                     ((__t = (pin1b)) == null ? '' : __t) +
                     ';';
             }
@@ -1406,8 +1406,8 @@
                 __p += 'void motor(int power){\n  if(power > 0){\n    digitalWrite(motor1A, 0);\n    analogWrite(motor1B, power);\n  }\n  else if(power < 0){\n    digitalWrite(motor1A, 1);\n    analogWrite(motor1B, 255+power);\n  }\n  else{\n    digitalWrite(motor1A, 0);\n    analogWrite(motor1A, 0);\n  }\n}';
             }
             return __p
-        };        
-        
+        };
+
         this["JST"]["servo_mot_init_setup"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -1436,12 +1436,12 @@
                 __e = _.escape;
             with(obj) {
                 __p += '#include <OneWire.h>\n#include <DallasTemperature.h>\n\nOneWire oneWire('+
-                ((__t = (pina)) == null ? '' : __t) + 
+                ((__t = (pina)) == null ? '' : __t) +
                 ');\nDallasTemperature sensors(&oneWire);';
             }
             return __p
-        };        
-        
+        };
+
         this["JST"]["bq_temp_setup"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -2083,7 +2083,7 @@
             }
             return __p
         };
-        
+
         this["JST"]["lcd_def_declare_i2c"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -2095,7 +2095,7 @@
         };
 
         //////////////////////
-        
+
         this["JST"]["lcd_print"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -2714,7 +2714,7 @@
                     ((__t = (pinr)) == null ? '' : __t) +
                     ',' +
                     ((__t = (statr)) == null ? '' : __t) +
-                    ');\n analogWrite(' +                    
+                    ');\n analogWrite(' +
                     ((__t = (ping)) == null ? '' : __t) +
                     ',' +
                     ((__t = (statg)) == null ? '' : __t) +
@@ -2745,7 +2745,7 @@
             }
             return __p
         };
-         
+
         this["JST"]["zum_photoresistor"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -2757,8 +2757,8 @@
 
             }
             return __p
-        };        
-        
+        };
+
         this["JST"]["zum_digitalread"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -2770,8 +2770,8 @@
 
             }
             return __p
-        };        
-        
+        };
+
         this["JST"]["zum_digitalread_setup"] = function(obj) {
             obj || (obj = {});
             var __t, __p = '',
@@ -3217,7 +3217,7 @@
             var code = '';
 
             Blockly.Arduino.definitions_['bq_setup_bat_'] = JST['bq_setup_bat']({
-                'echo_pin': echo_pin,     
+                'echo_pin': echo_pin,
                 'trigger_pin': trigger_pin,
                 'sonar_id': sonar_id
             });
@@ -3517,7 +3517,7 @@
         };
 
 
- 
+
         // Source: src/blocks/bq_joystick/bq_joystick.js
         /* global Blockly, options,JST, RoboBlocks */
         /* jshint sub:true */
@@ -3861,7 +3861,7 @@
         Blockly.Arduino.bq_rgbled = function() {
             var pinr = Blockly.Arduino.valueToCode(this, 'PIN_R', Blockly.Arduino.ORDER_ATOMIC);
             var ping = Blockly.Arduino.valueToCode(this, 'PIN_G', Blockly.Arduino.ORDER_ATOMIC);
-            var pinb = Blockly.Arduino.valueToCode(this, 'PIN_B', Blockly.Arduino.ORDER_ATOMIC);            
+            var pinb = Blockly.Arduino.valueToCode(this, 'PIN_B', Blockly.Arduino.ORDER_ATOMIC);
             var statr = Blockly.Arduino.valueToCode(this, 'PWM_R', Blockly.Arduino.ORDER_ATOMIC);
             var statg = Blockly.Arduino.valueToCode(this, 'PWM_G', Blockly.Arduino.ORDER_ATOMIC);
             var statb = Blockly.Arduino.valueToCode(this, 'PWM_B', Blockly.Arduino.ORDER_ATOMIC);
@@ -3871,13 +3871,13 @@
             Blockly.Arduino.setups_['led3setup'] = JST['zum_led3_setups']({
                 'pinr': pinr,
                 'ping': ping,
-                'pinb': pinb  
+                'pinb': pinb
             });
 
             code += JST['zum_led3']({
                 'pinr': pinr,
                 'ping': ping,
-                'pinb': pinb,                
+                'pinb': pinb,
                 'statr': statr,
                 'statg': statg,
                 'statb': statb
@@ -5318,7 +5318,7 @@
                 this.setTooltip(RoboBlocks.locales.getKey('LANG_LCD_DEF_TOOLTIP'));
             }
         };
-        
+
         /* lcd_def_i2c code generation
          * @return {String} Code generated with block parameters
          */
@@ -7844,7 +7844,7 @@
 
             Blockly.Arduino.setups_['bq_temp_setup'] = JST['bq_temp_setup']({
             });
-        
+
             code += JST['bq_temp']({
                 'ind': indpin
             });
@@ -9030,7 +9030,7 @@
                     .appendField(RoboBlocks.locales.getKey('LANG_BQ_SMOKE_PIN'));
                 this.setOutput(true, Number);
             }
-        };  
+        };
           /**
          * zum_soil code generation
          * @return {String} Code generated with block parameters
@@ -9166,7 +9166,7 @@
             code += JST['zum_digitalread']({
                 'dropdown_pin': dropdown_pin
             });
-            
+
             Blockly.Arduino.setups_['setup_button_' + dropdown_pin] = JST['zum_digitalread_setup']({
                 'dropdown_pin': dropdown_pin,
             });
