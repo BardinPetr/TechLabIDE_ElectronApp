@@ -30,6 +30,7 @@ var sp = null;
 var mainWindow = null;
 var termWindow = null;
 var setWindow = null;
+var stWindow = null;
 
 global.sender = null;
 global.tSender = null;
@@ -51,6 +52,17 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
+  stWindow = new BrowserWindow({
+    width: 400,
+    height: 450,
+    resizable: false,
+    frame: false,
+    icon: "app/media/icon64" + _icon,
+    title: "TechLabIDE",
+    show: true
+  });
+  stWindow.loadURL('file://' + __dirname + '/app/start.html');
+
   mainWindow = new BrowserWindow({
     width: 900,
     height: 1000,
@@ -58,13 +70,18 @@ app.on('ready', function() {
     frame: false,
     icon: "app/media/icon64" + _icon,
     title: "TechLabIDE",
-    show: true
+    show: false
   });
 
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
-  mainWindow.maximize();
-
-  if (require("./settings.json").debug) mainWindow.webContents.openDevTools();
+  mainWindow.once('ready-to-show', () => {
+    setTimeout(() => {
+      mainWindow.show()
+      mainWindow.maximize();
+      if (require("./settings.json").debug) mainWindow.webContents.openDevTools();
+      stWindow.hide();
+    }, 3000);
+  })
 
   mainWindow.on('closed', function() {
     mainWindow = null;
@@ -223,7 +240,7 @@ ipcMain.on("updateSettings", function(e, d) {
     global.sender.send('boardsRefresh', boards);
     setWindow.hide();
     app.relaunch({
-      args: process.argv.slice(1).concat(['--relaunch']);
+      args: process.argv.slice(1).concat(['--relaunch'])
     })
     app.exit(0);
   });
