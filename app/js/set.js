@@ -9,6 +9,7 @@ var ombI = $("#omb");
 var dsspI = $("#dssp");
 var dbgI = $("#debug");
 var thm = $("#theme");
+var upl = $("#upl");
 
 function log(e) {
   console.log(e);
@@ -29,6 +30,7 @@ ipcRenderer.on("setOk", function(e, d) {
   ombI.prop('checked', settings.onlyMainBoards);
   dsspI.prop('checked', settings.disableSoftwarePorts);
   dbgI.prop('checked', settings.debug);
+  upl.prop('checked', settings.uploadType);
   thm.prop('checked', settings.theme);
 });
 
@@ -38,6 +40,7 @@ $("#sub").click(function() {
   settings.onlyMainBoards = ombI.prop('checked');
   settings.disableSoftwarePorts = dsspI.prop('checked');
   settings.debug = dbgI.prop('checked');
+  settings.uploadType = upl.prop('checked');
   settings.theme = thm.prop('checked');
   ipcRenderer.send("updateSettings", settings);
 });

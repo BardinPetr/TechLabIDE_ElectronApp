@@ -11,6 +11,19 @@ const {
 const fs = require('fs');
 var Avrgirl = require('avrgirl-arduino');
 var SerialPort = require("serialport");
+var fileSystem = require('fs');
+var path = require('path');
+var exec = require('child_process').exec;
+
+function _execute(command, callback) {
+  exec(command, function(error, stdout, stderr) {
+    callback(stdout);
+  });
+};
+
+function execute(command, callback) {
+  exec(command, function(error, stdout, stderr) {});
+};
 
 var sp = null;
 
@@ -42,7 +55,7 @@ app.on('ready', function() {
     height: 1000,
     resizable: false,
     frame: false,
-    icon: "app/media/icon64.png",
+    icon: "app/media/icon64.ico",
     title: "TechLabIDE",
     show: true
   });
@@ -131,6 +144,10 @@ ipcMain.on('upload', function(e, d) {
     e.sender.send("cstart");
   }
   get_hex(d, function(res, c) {
+    if (c != 0) {
+      global.sender.send("u", false);
+      return;
+    }
     var avrgirl = new Avrgirl({
       board: board.name,
       port: port.comName,
@@ -285,31 +302,90 @@ function saveFileC(d) {
  * Code processing
  */
 function get_hex(code, cb) {
-  var http = require('http');
-  var options = {
-    host: require("./settings.json").srv.url,
-    port: require("./settings.json").srv.port,
-    path: '/?data=' + encodeURI(JSON.stringify({
-      "board": board.aname,
-      "sketch": code
-    }))
-  };
+  log(9999);
+  if (require("./settings.json").uploadType) {
+    log(8888)
+    var http = require('http');
+    var options = {
+      host: require("./settings.json").srv.url,
+      port: require("./settings.json").srv.port,
+      path: '/?data=' + encodeURI(JSON.stringify({
+        "board": board.aname,
+        "sketch": code
+      }))
+    };
 
-  callback = function(response) {
-    var str = '';
+    callback = function(response) {
+      var str = '';
 
-    response.on('data', function(chunk) {
-      str += chunk;
+      response.on('data', function(chunk) {
+        str += chunk;
+      });
+      response.on('end', function() {
+        log('compilation finished');
+        var data = JSON.parse(str);
+        cb(data.hex, data.code);
+      });
+    }
+
+    http.request(options, callback).end();
+    log('compilation started');
+  } else {
+    ////
+    log('compilation started');
+    var rnd = "s4526132";
+    var rnd_o = "o" + rnd;
+    var s_Path = rnd + "/" + rnd + ".ino";
+    var o_Path = rnd_o + "\\";
+    var h_Path = rnd_o + "/" + rnd + ".ino.with_bootloader.hex";
+
+    _execute("mkdir " + rnd, () => {
+      _execute("mkdir " + rnd_o, () => {
+        try {
+          fileSystem.writeFile(s_Path, code, function(err) {
+            if (err) {
+              execute('rm -r' + rnd);
+              execute('rm -r' + rnd_o);
+              cb(null, 2);
+              return log(err);
+            }
+            var arduinopath = require("./settings.json").arduinoPath + (" --board " + board) + (" --pref build.path=" + rnd_o) + (" --verify " + s_Path);
+            log(arduinopath);
+            exec(arduinopath, function(code, stdout, stderr) {
+              if (code == 0) {
+                log("Running arduino");
+
+                var filePath = path.join(__dirname, h_Path);
+
+                fileSystem.readFile(h_Path, 'utf8', function(err, data) {
+                  if (err) {
+                    execute('rm -r' + rnd);
+                    execute('rm -r' + rnd_o);
+                    cb(null, 2);
+                    return log(err);
+                  }
+                  execute('rm -r' + rnd);
+                  execute('rm -r' + rnd_o);
+                  cb(null, 2);
+                });
+              } else {
+                execute('rm -r' + rnd);
+                execute('rm -r' + rnd_o);
+                cb(null, 2);
+              }
+            });
+          });
+        } catch (Exception) {
+          log("ERROR");
+          execute('rm -r' + rnd);
+          execute('rm -r' + rnd_o);
+          cb(null, 2);
+        }
+      });
     });
-    response.on('end', function() {
-      log('compilation finished');
-      var data = JSON.parse(str);
-      cb(data.hex, data.code);
-    });
+
+    ////
   }
-
-  http.request(options, callback).end();
-  log('compilation started');
 }
 
 function get_boards() {
