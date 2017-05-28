@@ -40,8 +40,9 @@ var port = {};
 global.sPort = null;
 
 var onlyMainBoards = true;
-
 var baudR = 9600;
+
+var _icon = (process.platform === 'win32' ? '.ico' : (process.platform === 'linux' ? '.png' : '.icns'));
 
 app.on('window-all-closed', function() {
   if (process.platform !== 'darwin') {
@@ -55,7 +56,7 @@ app.on('ready', function() {
     height: 1000,
     resizable: false,
     frame: false,
-    icon: "app/media/icon64.ico",
+    icon: "app/media/icon64" + _icon,
     title: "TechLabIDE",
     show: true
   });
@@ -217,14 +218,14 @@ ipcMain.on('set', function() {
   })
 });
 ipcMain.on("updateSettings", function(e, d) {
-  fs.writeFile("settings.json", JSON.stringify(d), () => {
+  fs.writeFile(__dirname + "/settings.json", JSON.stringify(d), () => {
     boards = get_boards();
     global.sender.send('boardsRefresh', boards);
     setWindow.hide();
     app.relaunch({
-      args: process.argv.slice(1).concat(['--relaunch'])
+      args: process.argv.slice(1).concat(['--relaunch']);
     })
-    app.exit(0)
+    app.exit(0);
   });
 })
 

@@ -1,12 +1,1 @@
-{
-  "arduinoPath": "C:\\Users\\Petr\\Downloads\\arduino-1.6.8-windows\\arduino-1.6.8\\arduino_debug.exe",
-  "debug": false,
-  "disableSoftwarePorts": false,
-  "onlyMainBoards": false,
-  "srv": {
-    "port": 2000,
-    "url": "bardin.petr.fvds.ru"
-  },
-  "theme": true,
-  "uploadType": true
-}
+{"arduinoPath":"C:\\Users\\Petr\\Downloads\\arduino-1.6.8-windows\\arduino-1.6.8\\arduino_debug.exe","debug":false,"disableSoftwarePorts":false,"onlyMainBoards":false,"srv":{"port":2000,"url":"bardin.petr.fvds.ru"},"theme":true,"uploadType":true}
