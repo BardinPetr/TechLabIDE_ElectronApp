@@ -101,9 +101,9 @@ app.on('ready', function() {
 
   setWindow = new BrowserWindow({
     width: 770,
-    height: 500,
+    height: 540,
     minWidth: 770,
-    minHeight: 510,
+    minHeight: 540,
     frame: false,
     show: false,
     icon: "app/media/icons/settings.png",
@@ -124,6 +124,13 @@ ipcMain.on('ready', function(e, d) {
   global.sender.send('boardsRefresh', boards);
   board = boards[0];
   global.sender.send('run', require("./settings.json"));
+
+  var _args = process.argv;
+  if (_args.length > 1) {
+    fs.readFile(_args[(_args[1] != '.' ? 1 : 2)], 'utf-8', function(err, data) {
+      e.sender.send('openOk', data);
+    });
+  }
 });
 
 
@@ -217,9 +224,9 @@ ipcMain.on('saveC', function(e, d) {
 ipcMain.on('set', function() {
   setWindow = new BrowserWindow({
     width: 770,
-    height: 500,
+    height: 540,
     minWidth: 770,
-    minHeight: 510,
+    minHeight: 540,
     frame: false,
     show: false,
     icon: "app/media/icons/settings.png",
@@ -320,9 +327,7 @@ function saveFileC(d) {
  * Code processing
  */
 function get_hex(code, cb) {
-  log(9999);
   if (require("./settings.json").uploadType) {
-    log(8888)
     var http = require('http');
     var options = {
       host: require("./settings.json").srv.url,
@@ -356,7 +361,6 @@ function get_hex(code, cb) {
     var s_Path = rnd + "/" + rnd + ".ino";
     var o_Path = rnd_o + "\\";
     var h_Path = rnd_o + "/" + rnd + ".ino.with_bootloader.hex";
-
     _execute("mkdir " + rnd, () => {
       _execute("mkdir " + rnd_o, () => {
         try {
@@ -365,26 +369,25 @@ function get_hex(code, cb) {
               execute('rm -r' + rnd);
               execute('rm -r' + rnd_o);
               cb(null, 2);
-              return log(err);
+              log(err);
+              return;
             }
-            var arduinopath = require("./settings.json").arduinoPath + (" --board " + board) + (" --pref build.path=" + rnd_o) + (" --verify " + s_Path);
-            log(arduinopath);
+
+            var arduinopath = require("./settings.json").arduinoPath + (" --board " + board.aname) + (" --pref build.path=" + rnd_o) + (" --verify " + s_Path);
             exec(arduinopath, function(code, stdout, stderr) {
-              if (code == 0) {
-                log("Running arduino");
-
+              if (stdout.search("Sketch uses ") != -1) {
                 var filePath = path.join(__dirname, h_Path);
-
                 fileSystem.readFile(h_Path, 'utf8', function(err, data) {
                   if (err) {
                     execute('rm -r' + rnd);
                     execute('rm -r' + rnd_o);
                     cb(null, 2);
-                    return log(err);
+                    return;
                   }
                   execute('rm -r' + rnd);
                   execute('rm -r' + rnd_o);
-                  cb(null, 2);
+                  log("compilation finished")
+                  cb(data, 0);
                 });
               } else {
                 execute('rm -r' + rnd);

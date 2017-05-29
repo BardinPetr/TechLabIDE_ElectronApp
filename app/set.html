@@ -34,7 +34,23 @@
           <input type="text" class="form-control" id="port" placeholder="2000">
         </div>
       </div>
-      <div style="padding-left: 0px; padding-top: 35px">
+
+      <div id="apDiv" class="form-group disabled" style="padding-top: 10px">
+        <label class="setText control-label col-sm-3" for="ap" style="color: #EEE; font-size:12pt">Arduino path</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="ap" placeholder="2000">
+        </div>
+      </div>
+      <div class="can-toggle demo-rebrand-1">
+        <input id="upl" type="checkbox">
+        <label for="upl">
+          <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Удаленная компиляция</div>
+          <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
+          <div style="width:40%"></div>
+        </label>
+      </div>
+
+      <div style="padding-left: 0px; padding-top: 25px">
         <div class="can-toggle demo-rebrand-1">
           <input id="omb" type="checkbox">
           <label for="omb">
@@ -55,14 +71,6 @@
           <input id="debug" type="checkbox">
           <label for="debug">
             <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Отладка</div>
-            <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
-            <div style="width:40%"></div>
-          </label>
-        </div>
-        <div class="can-toggle demo-rebrand-1 disabled">
-          <input id="upl" type="checkbox">
-          <label for="upl">
-            <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Удаленная компиляция</div>
             <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
             <div style="width:40%"></div>
           </label>
