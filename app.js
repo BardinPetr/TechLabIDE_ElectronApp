@@ -3,11 +3,7 @@
  */
 
 const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-const {
-    ipcMain
-} = require('electron');
+const { app, globalShortcut, BrowserWindow, ipcMain } = require('electron')
 const fs = require('fs');
 var Avrgirl = require('avrgirl-arduino');
 var SerialPort = require("serialport");
@@ -46,9 +42,7 @@ var baudR = 9600;
 var _icon = (process.platform === 'win32' ? '.ico' : (process.platform === 'linux' ? '.png' : '.icns'));
 
 app.on('window-all-closed', function() {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+    app.quit();
 });
 
 app.on('ready', function() {
@@ -132,6 +126,22 @@ ipcMain.on('ready', function(e, d) {
             savedFile = _args[_args.length - 1];
         });
     }
+
+    globalShortcut.register('CommandOrControl+S', () => {
+        e.sender.send("ctrl+s");
+    });
+    globalShortcut.register('CommandOrControl+N', () => {
+        e.sender.send("ctrl+n");
+    });
+    globalShortcut.register('CommandOrControl+O', () => {
+        e.sender.send("ctrl+o");
+    });
+    globalShortcut.register('CommandOrControl+U', () => {
+        e.sender.send("ctrl+u");
+    });
+    globalShortcut.register('CommandOrControl+T', () => {
+        e.sender.send("ctrl+t");
+    });
 });
 
 
@@ -163,11 +173,11 @@ ipcMain.on('compile', function(e, d) {
     });
 });
 ipcMain.on('upload', function(e, d) {
-    if (port === undefined) {
+    if (port) {
+        e.sender.send("cstart");
+    } else {
         e.sender.send("noport");
         return;
-    } else {
-        e.sender.send("cstart");
     }
     get_hex(d, function(res, c) {
         if (c != 0) {

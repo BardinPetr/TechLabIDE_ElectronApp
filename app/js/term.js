@@ -130,3 +130,15 @@ var str2ab = function(str) {
     }
     return bytes.buffer;
 };
+
+var chars = [];
+document.onkeypress = function(e) {
+    if (e.key === "Enter") {
+        try {
+            sp.write(str2ab($("#sendText").val() + nl));
+            $("#sendText").val("");
+        } catch (ex) {
+            log(ex)
+        }
+    }
+}
