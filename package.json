@@ -1,46 +1,46 @@
 {
-  "name": "techlab-ide-native",
-  "version": "0.6.0",
-  "description": "TODO",
-  "main": "app.js",
-  "window": {
-    "title": "TechLabIDE",
-    "fullscreen": true,
-    "position": "center"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https//github.com/BardinPetr/TechLabIDE_ElectronApp.git"
-  },
-  "keywords": [
-    "arduino"
-  ],
-  "author": "Bardin Petr <bardin.petr@gmail.com>",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/BardinPetr/TechLabIDE_ElectronApp/issues"
-  },
-  "homepage": "https://github.com/BardinPetr/TechLabIDE_ElectronApp",
-  "dependencies": {
-    "avrgirl-arduino": "^2.1.0",
-    "path": "^0.12.7",
-    "serialport": "^4.0.7",
-    "shelljs": "^0.7.7"
-  },
-  "devDependencies": {
-    "electron": "^1.4.1",
-    "electron_packager": "^1.0.5",
-    "electron-rebuild": "^1.4.0",
-    "electron-prebuilt": "^1.4.13"
-  },
-  "scripts": {
-    "install": "electron-rebuild",
-    "test": "echo \"Error: no test specified\"",
-    "start": "electron . C:\\Users\\Petr\\Desktop\\35352.tlab",
-    "buildWin": "electron-packager . TechLabIDE --icon /app/media/icon64.ico --platform=win32 --arch=x64 --electron-version=1.6.8 --app-version=0.6.0 --out=dist --prune --overwrite --win32metadata.CompanyName=\"RoboNEL\" --win32metadata.ProductName=\"TechLabIDE-Visual programming IDE\" --win32metadata.requestedExecutionLevel=\"asInvoker\"",
-    "buildMac": "electron-packager . TechLabIDE --icon /app/media/icon64.icns --platform=darvin --arch=all --electron-version=1.6.8 --app-version=0.6.0 --out=dist --prune --overwrite && electron-packager . TechLabIDE --icon /app/media/icons/icon64.icns --platform=mas --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite",
-    "buildLin": "electron-packager . TechLabIDE --icon /app/media/icon64.png --platform=linux --arch=x64 --electron-version=1.6.8 --app-version=0.6.0 --out=dist --prune --overwrite",
-    "build": "npm run buildWin && npm run buildMac && npm run buildLin",
-    "spRebuild": "cd node_modules/serialport &&  HOME=~/.electron-gyp node-gyp rebuild --target=1.6.8 --arch=x64 --dist-url=https://atom.io/download/electron"
-  }
+    "name": "techlab-ide-native",
+    "version": "0.6.0",
+    "description": "TODO",
+    "main": "app.js",
+    "window": {
+        "title": "TechLabIDE",
+        "fullscreen": true,
+        "position": "center"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https//github.com/BardinPetr/TechLabIDE_ElectronApp.git"
+    },
+    "keywords": [
+        "arduino"
+    ],
+    "author": "Bardin Petr <bardin.petr@gmail.com>",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/BardinPetr/TechLabIDE_ElectronApp/issues"
+    },
+    "homepage": "https://github.com/BardinPetr/TechLabIDE_ElectronApp",
+    "dependencies": {
+        "avrgirl-arduino": "^2.1.0",
+        "path": "^0.12.7",
+        "serialport": "^4.0.7",
+        "shelljs": "^0.7.7"
+    },
+    "devDependencies": {
+        "electron": "^1.4.1",
+        "electron_packager": "^1.0.5",
+        "electron-rebuild": "^1.4.0",
+        "electron-prebuilt": "^1.4.13"
+    },
+    "scripts": {
+        "install": "electron-rebuild",
+        "test": "echo \"Error: no test specified\"",
+        "start": "electron . ddf sdv fdvSB C:\\Users\\Petr\\Desktop\\a.tlab",
+        "buildWin": "electron-packager . TechLabIDE --icon /app/media/icon64.ico --platform=win32 --arch=x64 --electron-version=1.6.8 --app-version=0.6.0 --out=dist --prune --overwrite --win32metadata.CompanyName=\"RoboNEL\" --win32metadata.ProductName=\"TechLabIDE-Visual programming IDE\" --win32metadata.requestedExecutionLevel=\"asInvoker\"",
+        "buildMac": "electron-packager . TechLabIDE --icon /app/media/icon64.icns --platform=darvin --arch=all --electron-version=1.6.8 --app-version=0.6.0 --out=dist --prune --overwrite && electron-packager . TechLabIDE --icon /app/media/icons/icon64.icns --platform=mas --arch=all --electron-version=1.6.8 --app-version=0.3.0 --out=dist --prune --overwrite",
+        "buildLin": "electron-packager . TechLabIDE --icon /app/media/icon64.png --platform=linux --arch=x64 --electron-version=1.6.8 --app-version=0.6.0 --out=dist --prune --overwrite",
+        "build": "npm run buildWin && npm run buildMac && npm run buildLin",
+        "spRebuild": "cd node_modules/serialport &&  HOME=~/.electron-gyp node-gyp rebuild --target=1.6.8 --arch=x64 --dist-url=https://atom.io/download/electron"
+    }
 }
