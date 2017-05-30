@@ -2,93 +2,93 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-  <link href="css/main.css" rel="stylesheet">
-  <link href="css/toggle.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/toggle.css" rel="stylesheet">
 </head>
 
 <body style="background-color:#444;">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Settings</a>
-      </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a id="close" href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container" style="background-color:#444; padding-top:60px; width:100%;" id="c">
-    <div class="form-horizontal" href="">
-      <div class="form-group">
-        <label class="setText control-label col-sm-3" for="url" style="color: #EEE; font-size:12pt">URL  сервера</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" id="url" placeholder="bardin.petr.fvds.ru">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Settings</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="close" href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
+            </ul>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="setText control-label col-sm-3" for="port" style="color: #EEE; font-size:12pt">Порт сервера</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" id="port" placeholder="2000">
-        </div>
-      </div>
+    </nav>
+    <div class="container" style="background-color:#444; padding-top:60px; width:100%;" id="c">
+        <div class="form-horizontal" href="">
+            <div class="form-group">
+                <label class="setText control-label col-sm-3" for="url" style="color: #EEE; font-size:12pt">URL  сервера</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="url" placeholder="bardin.petr.fvds.ru">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="setText control-label col-sm-3" for="port" style="color: #EEE; font-size:12pt">Порт сервера</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="port" placeholder="2000">
+                </div>
+            </div>
 
-      <div id="apDiv" class="form-group disabled" style="padding-top: 10px">
-        <label class="setText control-label col-sm-3" for="ap" style="color: #EEE; font-size:12pt">Arduino path</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" id="ap" placeholder="2000">
-        </div>
-      </div>
-      <div class="can-toggle demo-rebrand-1">
-        <input id="upl" type="checkbox">
-        <label for="upl">
+            <div id="apDiv" class="form-group disabled" style="padding-top: 10px">
+                <label class="setText control-label col-sm-3" for="ap" style="color: #EEE; font-size:12pt">Arduino path</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="ap" placeholder="2000">
+                </div>
+            </div>
+            <div class="can-toggle demo-rebrand-1">
+                <input id="upl" type="checkbox">
+                <label for="upl">
           <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Удаленная компиляция</div>
-          <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
+          <div class="can-toggle__switch upl" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
           <div style="width:40%"></div>
         </label>
-      </div>
+            </div>
 
-      <div style="padding-left: 0px; padding-top: 25px">
-        <div class="can-toggle demo-rebrand-1">
-          <input id="omb" type="checkbox">
-          <label for="omb">
+            <div style="padding-left: 0px; padding-top: 25px">
+                <div class="can-toggle demo-rebrand-1">
+                    <input id="omb" type="checkbox">
+                    <label for="omb">
             <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Только основные платы</div>
             <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
             <div style="width:40%"></div>
           </label>
-        </div>
-        <div class="can-toggle demo-rebrand-1">
-          <input id="dssp" type="checkbox">
-          <label for="dssp">
+                </div>
+                <div class="can-toggle demo-rebrand-1">
+                    <input id="dssp" type="checkbox">
+                    <label for="dssp">
             <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Только реальные порты</div>
             <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
             <div style="width:40%"></div>
           </label>
-        </div>
-        <div class="can-toggle demo-rebrand-1">
-          <input id="debug" type="checkbox">
-          <label for="debug">
+                </div>
+                <div class="can-toggle demo-rebrand-1">
+                    <input id="debug" type="checkbox">
+                    <label for="debug">
             <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Отладка</div>
             <div class="can-toggle__switch" data-checked="ON" data-unchecked="OFF" style="width:30%"></div>
             <div style="width:40%"></div>
           </label>
-        </div>
-        <div class="can-toggle demo-rebrand-1">
-          <input id="theme" type="checkbox">
-          <label for="theme">
+                </div>
+                <div class="can-toggle demo-rebrand-1">
+                    <input id="theme" type="checkbox">
+                    <label for="theme">
             <div class="can-toggle__label-text" style="width:30%; font-size:12pt">Тема</div>
             <div class="can-toggle__switch" data-checked="Светлая" data-unchecked="Темная" style="width:30%"></div>
             <div style="width:40%"></div>
           </label>
+                </div>
+            </div>
+            <div style="padding-top: 30px">
+                <button href="#" id="sub" type="submit" class="btn btn-default" style="width: 100%;"><h4>Submit</h4></button>
+            </div>
         </div>
-      </div>
-      <div style="padding-top: 30px">
-        <button href="#" id="sub" type="submit" class="btn btn-default" style="width: 100%;"><h4>Submit</h4></button>
-      </div>
     </div>
-  </div>
 </body>
 
 <script src="lib/jquery/dist/jquery.js"></script>
