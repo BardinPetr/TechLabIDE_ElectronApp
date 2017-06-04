@@ -46,6 +46,8 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
+    process.env.GOOGLE_API_KEY = "AIzaSyABpfe6JaAcvpLRxAg6h_uo-XMpyz17RUM";
+
     stWindow = new BrowserWindow({
         width: 400,
         height: 450,

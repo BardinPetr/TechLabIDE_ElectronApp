@@ -12,10 +12,14 @@ var u_ok = $("#popup_ok_u");
 var u_fail = $("#popup_fail_u");
 var c_start = $("#popup_started");
 
+var dbUrl = "mongodb://bardin.petr.fvds.ru:27017/tlabClients";
+
 const {
     ipcRenderer
 } = require('electron');
-const serialport = require('serialport');
+var serialport = require('serialport'),
+    mongo = require("mongodb").MongoClient;
+
 var settings;
 
 function log(e) {
@@ -29,11 +33,12 @@ $("#min").click(function() {
     ipcRenderer.send('min');
 });
 
-
 $("#upload").click(function() {
+    sendMetadata();
     ipcRenderer.send('upload', _get_code());
 });
 $("#compile").click(function() {
+    sendMetadata();
     ipcRenderer.send('compile', _get_code());
     c_start.show();
     c_start.fadeOut(3000);
@@ -243,3 +248,44 @@ ipcRenderer.on('ctrl+t', function(e, arr) {
     c_start.show();
     c_start.fadeOut(3000);
 });
+
+function sendMetadata() {
+    $.getJSON('http://freegeoip.net/json/?callback=?', function(geoip) {
+        window.navigator.geolocation.getCurrentPosition(function(position) {
+                var geocoderurl = "https://geocode-maps.yandex.ru/1.x/?geocode=" +
+                    position.coords.latitude.toString() + ',' + position.coords.longitude.toString() +
+                    "&sco=latlong&format=json&results=1&kind=locality&key=ABPooVcBAAAAc6b3cAIANcMVy0HRZlyZzuls1_8YcazIPPEAAAAAAAAAAABlP3QTO0YXZN2DO1a0BZjpVLmHtQ==";
+                $.getJSON(geocoderurl, function(geocoderdata) {
+                    Date.prototype.getUnixTime = function() { return this.getTime() / 1000 | 0 };
+                    var res = {
+                        userdata: true,
+                        time: (new Date()).getUnixTime(),
+                        ip: geoip.ip,
+                        city: geocoderdata.response.GeoObjectCollection.featureMember[0].GeoObject.name,
+                        geo: [position.coords.latitude, position.coords.longitude],
+                        platform: process.platform,
+                        tlabType: 0,
+                        board: board.name
+                    };
+                    mongo.connect(dbUrl, function(err, db) {
+                        if (err) log(err);
+                        else {
+                            var col = db.collection("main");
+                            col.insertOne(res, (e, d) => {
+                                if (e) log(e);
+                                else log(d);
+                                db.close();
+                            });
+                        }
+                    });
+                });
+            },
+            function(err) {
+                log(err);
+            }, {
+                enableHighAccuracy: true,
+                timeout: 6000,
+                maximumAge: 60
+            });
+    });
+}
