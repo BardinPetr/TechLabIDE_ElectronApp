@@ -62,7 +62,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({
         width: 900,
         height: 1000,
-        resizable: false,
+        resizable: true,
         frame: false,
         icon: "app/media/icon64" + _icon,
         title: "TechLabIDE",
@@ -143,6 +143,9 @@ ipcMain.on('ready', function(e, d) {
     });
     globalShortcut.register('CommandOrControl+T', () => {
         e.sender.send("ctrl+t");
+    });
+    app.on('will-quit', () => {
+        globalShortcut.unregisterAll();
     });
 });
 
